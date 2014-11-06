@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://org.eclipse.fx.ide.jdt/1.0" buildDirectory="${project}/build" cssToBin="true">
+  <deploy packagingFormat="image">
+    <application name="FXHelloCV" mainclass="it.polito.elite.teaching.cv.FXHelloCV" toolkit="fx"/>
+    <info title="FXHelloCV"/>
+  </deploy>
+  <signjar/>
+  <files key="opencv" value="D:\Applications\opencv\build\java\x64\opencv_java246.dll"/>
+</anttasks:AntTask>

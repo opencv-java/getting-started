@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+	
+<BorderPane xmlns:fx="http://javafx.com/fxml"  fx:controller="it.polito.elite.teaching.cv.FXHelloCVController">
+   <center>
+      <ImageView id="currentFrame" />
+   </center>
+   <bottom>
+      <HBox alignment="center" >
+         <padding>
+            <Insets top="25" right="25" bottom="25" left="25"/>
+         </padding>
+         <Button fx:id="button" alignment="center" text="Start camera" onAction="#startCamera" />
+      </HBox>
+   </bottom>
+</BorderPane>
