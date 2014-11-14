@@ -55,7 +55,7 @@ public class FXHelloCVController
 		if (this.mainApp != null)
 		{
 			// get the ImageView object for showing the video stream
-			final ImageView frameView = (ImageView) mainApp.getRootElement().lookup("#currentFrame");
+			ImageView frameView = (ImageView) mainApp.getRootElement().lookup("#currentFrame");
 			// bind an image property with the container for frames
 			final ObjectProperty<Image> imageProp = new SimpleObjectProperty<>();
 			frameView.imageProperty().bind(imageProp);
@@ -77,7 +77,15 @@ public class FXHelloCVController
 						{
 							// update the image property => update the frame
 							// shown in the UI
-							imageProp.set(grabFrame());
+							final Image imageToShow = grabFrame();
+							Platform.runLater(new Runnable()
+							{
+								@Override
+								public void run()
+								{
+									imageProp.setValue(imageToShow);
+								}
+							});
 						}
 					};
 					this.timer = new Timer();
