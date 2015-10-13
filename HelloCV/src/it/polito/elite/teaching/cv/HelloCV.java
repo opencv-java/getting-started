@@ -2,9 +2,9 @@ package it.polito.elite.teaching.cv;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Core;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Core;
 
 /**
  * A simple class that demonstrates/tests the usage of the OpenCV library in
@@ -27,15 +27,15 @@ public class HelloCV
 		Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
 		System.out.println("mat = " + mat.dump());
 		
+		// prepare to convert a RGB image in gray scale
 		String location = "resources/Poli.jpg";
 		System.out.print("Convert the image at " + location + " in gray scale... ");
 		// get the jpeg image from the internal resource folder
-		Mat image = Highgui.imread(location);
+		Mat image = Imgcodecs.imread(location);
 		// convert the image in gray scale
 		Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2GRAY);
 		// write the new image on disk
-		Highgui.imwrite("resources/Poli-gray.jpg", image);
+		Imgcodecs.imwrite("resources/Poli-gray.jpg", image);
 		System.out.println("Done!");
-		
 	}
 }

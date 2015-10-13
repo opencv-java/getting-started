@@ -8,14 +8,14 @@
 	
 <BorderPane xmlns:fx="http://javafx.com/fxml"  fx:controller="it.polito.elite.teaching.cv.FXHelloCVController">
    <center>
-      <ImageView id="currentFrame" />
+      <ImageView fx:id="currentFrame" />
    </center>
    <bottom>
       <HBox alignment="center" >
          <padding>
             <Insets top="25" right="25" bottom="25" left="25"/>
          </padding>
-         <Button fx:id="button" alignment="center" text="Start camera" onAction="#startCamera" />
+         <Button fx:id="button" alignment="center" text="Start Camera" onAction="#startCamera" />
       </HBox>
    </bottom>
 </BorderPane>

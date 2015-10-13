@@ -1,7 +1,9 @@
 ## Getting started with OpenCV and JavaFX
 
-*Computer Vision course - [Politecnico di Torino](http://www.polito.it) - academic year 2014-2015*
+*Computer Vision course - [Politecnico di Torino](http://www.polito.it)*
 
-Two simple projects, made in Eclipse (Luna), for getting started with the OpenCV library (version 2.4.9) and with JavaFX (version 2 or superior).
+Two simple projects, made in Eclipse (Mars), for getting started with the [OpenCV](http://opencv.org) library (version 3.0) and with JavaFX (version 2 or superior).
 
-Please, note that both projects are Eclipse projects, made for teaching purposes. Before using both of them, you need to install the OpenCV library and create a `User Library` named `opencv2` that links to the OpenCV jar and native libraries. 
+Please, note that both projects are Eclipse projects, realized for teaching purposes. Before using any of them, you need to install the OpenCV library and create a `User Library` named `opencv` that links to the OpenCV jar and native libraries.
+
+A guide for getting started with OpenCV and Java is available at [http://opencv-java-tutorials.readthedocs.org/en/latest/index.html](http://opencv-java-tutorials.readthedocs.org/en/latest/index.html).
