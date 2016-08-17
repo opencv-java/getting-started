@@ -5,12 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.elite.teaching.cv.FXHelloCVController">
-   <center>
-      <ImageView fx:id="currentFrame" />
-   </center>
    <bottom>
       <HBox alignment="center">
          <padding>
@@ -21,4 +19,11 @@
          <Text fx:id="fps" strokeType="OUTSIDE" strokeWidth="0.0" />
       </HBox>
    </bottom>
+   <center>
+      <Pane fx:id="ImageViewPane" minHeight="200.0" minWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="currentFrame" />
+         </children>
+      </Pane>
+   </center>
 </BorderPane>
