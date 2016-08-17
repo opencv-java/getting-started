@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 /**
@@ -36,6 +37,9 @@ public class FXHelloCVController {
 	
 	@FXML
 	private Text fps;
+	
+	@FXML
+	private Pane ImageViewPane;
 
 	// the OpenCV object that realizes the video capture
 	private VideoCapture capture = new VideoCapture();
@@ -136,8 +140,11 @@ public class FXHelloCVController {
 	private void setFrametoImageView(Image frame) {
 		Platform.runLater(() -> {
 			currentFrame.setImage(frame);
+			currentFrame.setFitWidth(ImageViewPane.getWidth());
+			currentFrame.setFitHeight((ImageViewPane.getHeight()));
 			// set Image height/width by window size
 		});
+		
 	}
 
 	/**
