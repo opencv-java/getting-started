@@ -1,30 +1,33 @@
-package it.polito.elite.teaching.cv;
+package com.opencv.fx.controller;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.util.LinkedList;
+
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
+import com.opencv.fx.settings.Settings;
+
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
- * The controller for our application, where the application logic is
- * implemented. It handles the button for starting/stopping the camera and the
- * acquired video stream.
+ * The controller of the main window. Add another controller for each new window
  * 
- * @author <a href="mailto:luigi.derussis@polito.it">Luigi De Russis</a>
- * @author1 Maximilian Zuleger - some important fixes <max-z.de>
- * @version 1.6 (2016-8-16)
- * @since 1.0 (2013-10-20)
+ * @author Maximilian Zuleger -<max-z.de>
+ * @version 1.0 (2016-8-18)
+ * @since 1.0 (2016-8-18)
  * 
  */
 public class FXHelloCVController {
@@ -50,9 +53,24 @@ public class FXHelloCVController {
 
 	// Set video device
 	private static int videodevice = 0;
-
-	public void initController(int vd) {
-		videodevice = vd;
+	
+	//static onUpdate Vars
+	private static long fps_var;
+	
+	private LinkedList<Long> fps_avg = new LinkedList<Long>();
+	private int fps_avgof = 10;
+	
+	private static long startTime;
+	private static long endTime;
+	private static long timenow;
+	
+	private Settings settings;
+	private Stage settings_stage;
+	
+	public void initController(int video_device, Stage settings_stage) {
+		videodevice = video_device;
+		this.settings_stage = settings_stage;
+		settings = Settings.getInstance();
 	}
 
 	/**
@@ -77,6 +95,8 @@ public class FXHelloCVController {
 						public void run() {
 							while (cameraActive) {
 								try {
+									//Start Frame
+									startFrame();
 									//Grab Frame
 									Mat matToShow = grabFrame();
 									//Process Frame
@@ -85,19 +105,13 @@ public class FXHelloCVController {
 									Image imageToShow = mat2Image(matToShow);
 									//Update ImageView
 									setFrametoImageView(imageToShow);
+									//EndFrame
+									endFrame();
 									//Update the UI
 									updateUIObjects();
-
 								} catch (Exception e1) {
-									System.out.println("Error on Update " + e1);
-								}
-								// Sleep for lower FPS/updateRate
-								// try {
-								// Thread.sleep(10);
-								// } catch (InterruptedException e) {
-								// // TODO Auto-generated catch block
-								// e.printStackTrace();
-								// }
+									System.out.println("Error on Update Frame " + e1);
+								}							
 
 							}
 							System.out.println("Thread processFrame closed");
@@ -108,6 +122,14 @@ public class FXHelloCVController {
 							} catch (Exception e) {	
 							}
 
+						}
+						private void startFrame() {
+							startTime = System.nanoTime();	
+						}
+						private void endFrame() {
+							endTime = System.nanoTime();
+							timenow = (endTime - startTime) / 1000000;	
+							fps_var = FPSCalculator(timenow);	
 						}
 
 					});
@@ -133,6 +155,22 @@ public class FXHelloCVController {
 			this.button.setText("Start Camera");
 		}
 	}
+	
+	private long FPSCalculator(long time){
+		//FPS avg calculator 
+		long avg = 0;
+		fps_avg.addFirst(time);
+		if (fps_avg.size() == fps_avgof+1) fps_avg.removeLast();
+		if (fps_avg.size() == fps_avgof){
+			for (long i : fps_avg){
+				avg += i;
+			}
+			avg = avg/fps_avgof;
+			return 1000/avg;
+		}
+		return 1000/time;
+	}
+	
 
 	/**
 	 * Always Update UI from main thread
@@ -155,7 +193,7 @@ public class FXHelloCVController {
 			// Update UI Objects like: Textfield.setText() , Button.set..() ,
 			// Window.Resize...()
 			//Set FPS
-			fps.setText(""+capture.get(5));
+			fps.setText(""+fps_var);
 		});
 	}
 
@@ -175,8 +213,8 @@ public class FXHelloCVController {
 				this.capture.read(frame);
 
 				// if the frame is not empty, process it
-				if (!frame.empty()) {
-
+				if (frame.empty()) {
+					throw new Exception("Frame is empty");
 				}
 
 			} catch (Exception e) {
@@ -195,7 +233,8 @@ public class FXHelloCVController {
 	 */
 	private Mat processMat(Mat matToShow) {
 		// convert the image to gray scale
-		Imgproc.cvtColor(matToShow, matToShow, Imgproc.COLOR_BGR2GRAY);
+		if (settings.getProp().getProperty("gray").equals("1")){ Imgproc.cvtColor(matToShow, matToShow, Imgproc.COLOR_BGR2GRAY); }
+		
 		return matToShow;
 	}
 
@@ -229,10 +268,25 @@ public class FXHelloCVController {
 		System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
 		return image;
 	}
-
+	
+	@FXML
+	private void OpenSettingsWindow(Event event) {
+		settings_stage.show();
+	}
+	
+	@FXML
+	private void CloseWindow(Event event) {
+		setClosed();
+		System.out.println("Closing Window");
+		Platform.exit();
+	}
+	
 	public void setClosed() {
+		//Store Settings
+		settings.store();
 		//Close thread on window close
 		cameraActive = false;
 	}
+	
 
 }
