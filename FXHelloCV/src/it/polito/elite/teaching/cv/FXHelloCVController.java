@@ -20,12 +20,12 @@ import javafx.scene.text.Text;
  * The controller for our application, where the application logic is
  * implemented. It handles the button for starting/stopping the camera and the
  * acquired video stream.
- * 
+ *
  * @author <a href="mailto:luigi.derussis@polito.it">Luigi De Russis</a>
- * @author1 Maximilian Zuleger - some important fixes <max-z.de>
+ * @author Maximilian Zuleger - some important fixes <max-z.de>
  * @version 1.6 (2016-8-16)
  * @since 1.0 (2013-10-20)
- * 
+ *
  */
 public class FXHelloCVController {
 	// the FXML button
@@ -34,10 +34,10 @@ public class FXHelloCVController {
 	// the FXML image view
 	@FXML
 	private ImageView currentFrame;
-	
+
 	@FXML
 	private Text fps;
-	
+
 	@FXML
 	private Pane ImageViewPane;
 
@@ -57,7 +57,7 @@ public class FXHelloCVController {
 
 	/**
 	 * The action triggered by pushing the button on the GUI
-	 * 
+	 *
 	 * @param event
 	 *            the push button event
 	 */
@@ -105,7 +105,7 @@ public class FXHelloCVController {
 								capture.release();
 								updateUIObjects();
 								setFrametoImageView(null);
-							} catch (Exception e) {	
+							} catch (Exception e) {
 							}
 
 						}
@@ -144,7 +144,7 @@ public class FXHelloCVController {
 			currentFrame.setFitHeight((ImageViewPane.getHeight()));
 			// set Image height/width by window size
 		});
-		
+
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class FXHelloCVController {
 
 	/**
 	 * Get a frame from the opened video stream (if any)
-	 * 
+	 *
 	 * @return the {@link Mat} to show
 	 */
 	private Mat grabFrame() {
@@ -187,10 +187,10 @@ public class FXHelloCVController {
 
 		return frame;
 	}
-	
+
 	/**
 	 * Process a Frame
-	 * 
+	 *
 	 * @return the {@link Image} to show
 	 */
 	private Mat processMat(Mat matToShow) {
@@ -201,7 +201,7 @@ public class FXHelloCVController {
 
 	/**
 	 * Convert a Mat object (OpenCV) in the corresponding Image for JavaFX
-	 * 
+	 *
 	 * @param frame
 	 *            the {@link Mat} representing the current frame
 	 * @return the {@link Image} to show
