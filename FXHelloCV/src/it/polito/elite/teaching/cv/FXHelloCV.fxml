@@ -15,15 +15,9 @@
             <Insets bottom="25" left="25" right="25" top="25" />
          </padding>
          <Button fx:id="button" alignment="center" onAction="#startCamera" text="Start Camera" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  FPS:  " />
-         <Text fx:id="fps" strokeType="OUTSIDE" strokeWidth="0.0" />
       </HBox>
    </bottom>
    <center>
-      <Pane fx:id="ImageViewPane" minHeight="200.0" minWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="currentFrame" />
-         </children>
-      </Pane>
+      <ImageView fx:id="currentFrame" />
    </center>
 </BorderPane>

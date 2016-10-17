@@ -15,13 +15,13 @@ import javafx.fxml.FXMLLoader;
  * window with its resources (style, graphics, etc.).
  * 
  * @author <a href="mailto:luigi.derussis@polito.it">Luigi De Russis</a>
- * @author1 Maximilian Zuleger - some important fixes <max-z.de>
- * @version 1.2 (2016-8-16)
+ * @version 1.5 (2016-09-17)
  * @since 1.0 (2013-10-20)
- * 		
+ * 
  */
 public class FXHelloCV extends Application
 {
+	
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -41,20 +41,15 @@ public class FXHelloCV extends Application
 			// show the GUI
 			primaryStage.show();
 			
-			// init the controller
-			final FXHelloCVController controller = loader.getController();
-			
-			// Set video device
-			int videodevice = 1;
-			controller.initController(videodevice);
-			
+			// set the proper behavior on closing the application
+			FXHelloCVController controller = loader.getController();
 			primaryStage.setOnCloseRequest((new EventHandler<WindowEvent>() {
-		          public void handle(WindowEvent we) {
-		        	  controller.setClosed();
-		        	  System.out.println("Closed");
-		          }
-		      })); 
-			
+				public void handle(WindowEvent we)
+				{
+					controller.setClosed();
+					System.out.println("Closed");
+				}
+			}));
 		}
 		catch (Exception e)
 		{
