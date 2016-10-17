@@ -47,7 +47,6 @@ public class FXHelloCV extends Application
 				public void handle(WindowEvent we)
 				{
 					controller.setClosed();
-					System.out.println("Closed");
 				}
 			}));
 		}
