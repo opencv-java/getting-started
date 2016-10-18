@@ -141,20 +141,26 @@ public class FXHelloCVController
 	 */
 	private void stopAcquisition()
 	{
-		try
+		if (this.timer!=null && !this.timer.isShutdown())
 		{
-			// stop the timer
-			this.timer.shutdown();
-			this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
-		}
-		catch (InterruptedException e)
-		{
-			// log any exception
-			System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
+			try
+			{
+				// stop the timer
+				this.timer.shutdown();
+				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
+			}
+			catch (InterruptedException e)
+			{
+				// log any exception
+				System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
+			}
 		}
 		
-		// release the camera
-		this.capture.release();
+		if (this.capture.isOpened())
+		{
+			// release the camera
+			this.capture.release();
+		}
 	}
 	
 	/**
