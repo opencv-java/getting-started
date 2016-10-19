@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
  * Moreover, expose some "low level" methods for matching few JavaFX behavior.
  *
  * @author <a href="mailto:luigi.derussis@polito.it">Luigi De Russis</a>
- * @author Maximilian Zuleger <max-z.de>
+ * @author <a href="http://max-z.de">Maximilian Zuleger</a>
  * @version 1.0 (2016-09-17)
  * @since 1.0
  * 
