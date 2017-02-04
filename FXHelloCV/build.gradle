@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+}
+
+apply plugin:'java'
+
+def openCvJar="$opencv/build/bin/opencv-310.jar"
+def openCvLibFolder="$opencv/build/lib/"
+
+sourceSets {
+    main.java.srcDir('src')
+    main.resources.srcDir ('src/it/polito/elite/teaching/cv')
+}
+
+dependencies {
+    println System.getProperty("java.home")
+    compile files(openCvJar)
+}
+
+tasks.withType(Test) {
+    systemProperty "java.library.path", openCvLibFolder // library configuration for unit tests
+}
+
+
+apply plugin:'application'
+mainClassName  = 'it.polito.elite.teaching.cv.FXHelloCV'
+applicationDefaultJvmArgs = ["-Djava.library.path=$openCvLibFolder"]
