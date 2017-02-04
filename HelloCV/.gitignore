@@ -1,2 +1,40 @@
-/bin
-/resources/Poli-gray.jpg
+# Maven dependency files
+
+# Operating System Files
+
+*.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
+
+# Build Artifacts
+
+.gradle/
+build/
+target/
+bin/
+gen/
+
+# Local Configuration File
+
+local.properties
+
+# Eclipse Project Files
+
+.classpath
+.project
+.settings/
+.springBeans
+.factorypath
+
+# IntelliJ IDEA Files
+
+*.iml
+*.ipr
+*.iws
+*.idea
+
+README.html

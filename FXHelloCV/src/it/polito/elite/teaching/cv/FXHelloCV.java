@@ -1,14 +1,16 @@
 package it.polito.elite.teaching.cv;
 
-import org.opencv.core.Core;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import org.opencv.core.Core;
+
+import java.net.URL;
+import java.util.logging.Logger;
 
 /**
  * The main class for a JavaFX application. It creates and handle the main
@@ -28,12 +30,12 @@ public class FXHelloCV extends Application
 		try
 		{
 			// load the FXML resource
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("FXHelloCV.fxml"));
+			FXMLLoader loader = new FXMLLoader(getResource("FXHelloCV.fxml"));
 			// store the root element so that the controllers can use it
 			BorderPane rootElement = (BorderPane) loader.load();
 			// create and style a scene
 			Scene scene = new Scene(rootElement, 800, 600);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.getStylesheets().add(getResource("application.css").toExternalForm());
 			// create the stage with the given title and the previously created
 			// scene
 			primaryStage.setTitle("JavaFX meets OpenCV");
@@ -55,7 +57,14 @@ public class FXHelloCV extends Application
 			e.printStackTrace();
 		}
 	}
-	
+
+	private URL getResource(String filename) {
+		URL resource = getClass().getClassLoader().getResource(filename);
+		if ( resource == null ) {
+			Logger.getLogger("FXHelloCV").info("Can't find resource " + filename);
+		}
+		return resource;
+	}
 	/**
 	 * For launching the application...
 	 * 
