@@ -1,5 +1,7 @@
 ## Getting started with OpenCV and JavaFX
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 *Computer Vision course - [Politecnico di Torino](http://www.polito.it)*
 
 Two simple projects, made in Eclipse (Neon), for getting started with the [OpenCV](http://opencv.org) library (version 3.x) and with JavaFX (version 2 or superior).
